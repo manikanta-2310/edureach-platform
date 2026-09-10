@@ -20,59 +20,55 @@ If you are developing a production application, we recommend updating the config
 
 ```js
 export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+  # EduReach Client
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+  The client is the responsive React application for EduReach. It contains the public college experience, authentication screens, student content, AI chat drawer, counselor call flow, and protected account interactions.
 
-      // Other configs...
-    ],
-    languageOptions: {
+  ## Stack
+
+  - React 19 and TypeScript
+  - Vite
+  - React Router
+  - Axios
+  - Lucide React
+  - React Hot Toast
+
+  ## Setup
+
+  ```bash
+  npm install
+  copy .env.example .env
+  ```
+
+  Set the API base URL in `.env`:
+
+  ```env
+  VITE_API_URL=http://localhost:5000/api
+  ```
+
+  For a deployed frontend, set `VITE_API_URL` to the public backend URL ending in `/api` before building.
+
+  ## Deployment
+
+  - **Live application:** [edureach-platform-mauve.vercel.app](https://edureach-platform-mauve.vercel.app/)
+  - **Backend API:** [edureach-platform-pktf.onrender.com](https://edureach-platform-pktf.onrender.com)
+
+  ## Commands
+
+  ```bash
+  npm run dev       # Start the Vite development server
+  npm run lint      # Run ESLint
+  npm run build     # Type-check and create a production build
+  npm run preview   # Preview the production build locally
+  ```
+
+  ## Main Areas
+
+  - `src/pages/` contains route-level screens.
+  - `src/components/` contains homepage sections and interactive UI.
+  - `src/context/` contains authentication state.
+  - `src/services/` contains API, auth, chat, and Vapi clients.
+  - `src/data/content.ts` contains the public site content.
+
+  See the [project README](../README.md) for full-stack setup and deployment guidance.
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
