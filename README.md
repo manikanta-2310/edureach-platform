@@ -1,31 +1,26 @@
 # EduReach Platform
 
-EduReach is a college intelligence platform that connects students with course information, campus resources, mentors, events, and AI-powered guidance. The repository contains a React frontend and a Node.js/Express backend with MongoDB-backed authentication, chat, retrieval-augmented generation, and Vapi calling support.
+EduReach is an AI-powered college intelligence platform that helps students make smarter education decisions. It brings course information, campus life, mentors, placements, events, and personalized AI guidance into one accessible experience.
 
-## Links
+## Live Demo
 
-- **Source repository:** [github.com/manikanta-2310/edureach-platform](https://github.com/manikanta-2310/edureach-platform)
-- **Live frontend:** [edureach-platform-mauve.vercel.app](https://edureach-platform-mauve.vercel.app/)
-- **Live API:** [edureach-platform-pktf.onrender.com](https://edureach-platform-pktf.onrender.com)
-
-## Project Structure
-
-```text
-edureach-platform/
-  client/   React + TypeScript + Vite application
-  server/   Node.js + Express + TypeScript API
-```
+- **Frontend:** [edureach-platform-mauve.vercel.app](https://edureach-platform-mauve.vercel.app/)
+- **Backend API:** [edureach-platform-pktf.onrender.com](https://edureach-platform-pktf.onrender.com)
+- **Source code:** [github.com/manikanta-2310/edureach-platform](https://github.com/manikanta-2310/edureach-platform)
 
 ## Features
 
-- Student registration, login, and protected account flows
-- College courses, achievements, mentors, events, and student-life content
-- Authenticated AI chat backed by the EduReach knowledge base
-- Vapi-powered counselor calling flow
-- MongoDB persistence for users and vector-search knowledge documents
-- Responsive interface for desktop and mobile screens
+- User registration, login, and protected account access
+- AI-powered college guidance through an authenticated chat experience
+- Retrieval-augmented answers from the EduReach knowledge base
+- Voice counselor call requests through Vapi
+- Course information for B.Tech, M.Tech, and MBA programs
+- Placement statistics, recruiters, salary information, and achievements
+- Mentor profiles and department expertise
+- Campus facilities, student life, clubs, sports, and events
+- Responsive interface for desktop and mobile devices
 
-## Technology
+## Tech Stack
 
 ### Frontend
 
@@ -35,6 +30,7 @@ edureach-platform/
 - React Router
 - Axios
 - Lucide React
+- React Hot Toast
 
 ### Backend
 
@@ -42,46 +38,180 @@ edureach-platform/
 - Express 5
 - TypeScript
 - MongoDB and Mongoose
-- LangChain and Google Gemini
-- Vapi API
-- JSON Web Tokens and bcryptjs
+- JSON Web Tokens
+- bcryptjs
+- CORS
 
-## Requirements
+### AI and Integrations
 
-- Node.js 24 or newer for the server
-- npm
-- MongoDB database
-- Google AI API key for embeddings and chat
-- Vapi credentials for voice calling features
+- LangChain for retrieval and prompt orchestration
+- Google Gemini for embeddings and AI responses
+- MongoDB vector search for knowledge retrieval
+- Vapi for counselor call initiation
 
-## Local Development
+### Deployment
 
-Install dependencies in both applications:
+- Vercel for the frontend
+- Render for the backend API
+- GitHub for source control
 
-```bash
-cd client
-npm install
+## Project Structure
 
-cd ../server
-npm install
+```text
+edureach-platform/
+|
+|-- client/
+|   |-- src/
+|   |   |-- components/     Homepage sections and interactive UI
+|   |   |-- context/        Authentication state
+|   |   |-- data/           College and site content
+|   |   |-- pages/          Home, login, and signup screens
+|   |   |-- services/        API, auth, chat, and Vapi clients
+|   |   |-- App.tsx
+|   |   `-- main.tsx
+|   |-- package.json
+|   `-- vite.config.ts
+|
+|-- server/
+|   |-- knowledge-base/     EduReach source knowledge
+|   |-- src/
+|   |   |-- config/          Database configuration
+|   |   |-- controllers/     HTTP request handlers
+|   |   |-- middleware/      Auth and error handling
+|   |   |-- models/          User and knowledge document models
+|   |   |-- routes/          Auth, chat, and Vapi routes
+|   |   |-- services/        RAG and Vapi integrations
+|   |   `-- utils/           JWT and password utilities
+|   |-- package.json
+|   `-- tsconfig.json
+|
+|-- .gitignore
+`-- README.md
 ```
 
-Create environment files from the included examples:
+## System Architecture
 
-```bash
-copy client\.env.example client\.env
-copy server\.env.example server\.env
+```text
+          Student
+         |
+         v
+      React + Vite Client
+      Courses | Mentors | Campus
+      Chat | Auth | Counselor Call
+         |
+        Axios requests
+         |
+         v
+         Express + TypeScript API
+         /api/auth  /api/chat
+         /api/vapi
+        /          \
+       v            v
+      MongoDB       AI Services
+      Users and RAG     Gemini + Vapi
+     documents
 ```
 
-Use the following local development values:
+## User Journey
+
+```text
+Visit EduReach
+  |
+  v
+Explore courses, mentors, campus life, and placements
+  |
+  v
+Create an account or log in
+  |
+  v
+Ask the AI counselor questions about EduReach
+  |
+  v
+Request a counselor call when additional guidance is needed
+```
+
+## AI Chat Flow
+
+```text
+Authenticated student sends a question
+      |
+      v
+   Server receives /api/chat/message
+      |
+      v
+   Knowledge base retrieval in MongoDB
+      |
+      v
+       Gemini generates an answer
+      |
+      v
+      Response to client
+```
+
+## Counselor Call Flow
+
+```text
+Student submits course and topic details
+      |
+      v
+   Server receives /api/vapi/call
+      |
+      v
+   Vapi starts the counselor call
+      |
+      v
+   Call information returns to client
+```
+
+## Backend API
+
+All API routes are grouped under the `/api` prefix.
+
+### Authentication
+
+```text
+POST /api/auth/register
+POST /api/auth/login
+GET  /api/auth/me
+```
+
+### AI Chat
+
+```text
+POST /api/chat/message
+```
+
+Requires a valid JWT access token.
+
+### Counselor Calls
+
+```text
+POST /api/vapi/call
+```
+
+Requires a valid JWT access token and Vapi configuration.
+
+## Environment Variables
+
+### Client
+
+Create `client/.env`:
 
 ```env
-# client/.env
 VITE_API_URL=http://localhost:5000/api
 ```
 
+For production, set it to:
+
 ```env
-# server/.env
+VITE_API_URL=https://edureach-platform-pktf.onrender.com/api
+```
+
+### Server
+
+Create `server/.env` using `server/.env.example`:
+
+```env
 PORT=5000
 CLIENT_URL=http://localhost:5173
 MONGODB_URI=<your-mongodb-connection-string>
@@ -94,38 +224,122 @@ VAPI_PHONE_NUMBER_ID=<your-vapi-phone-number-id>
 VAPI_ASSISTANT_ID=<your-vapi-assistant-id>
 ```
 
-Start the API and frontend in separate terminals:
+For production, set `CLIENT_URL` to:
+
+```env
+CLIENT_URL=https://edureach-platform-mauve.vercel.app
+```
+
+Never commit `.env` files or real credentials. Only `.env.example` files belong in Git.
+
+## Local Setup
+
+### 1. Clone the repository
 
 ```bash
-# Terminal 1
+git clone https://github.com/manikanta-2310/edureach-platform.git
+cd edureach-platform
+```
+
+### 2. Install dependencies
+
+```bash
+cd client
+npm install
+
+cd ../server
+npm install
+```
+
+### 3. Configure environment variables
+
+```bash
+copy ..\client\.env.example ..\client\.env
+copy .env.example .env
+```
+
+Fill in the server credentials and keep them private.
+
+### 4. Start the backend
+
+```bash
 cd server
 npm run dev
+```
 
-# Terminal 2
+### 5. Start the frontend
+
+Open a second terminal:
+
+```bash
 cd client
 npm run dev
 ```
 
-The default local URLs are `http://localhost:5173` for the frontend and `http://localhost:5000` for the API.
+The local application runs at `http://localhost:5173` and the API runs at `http://localhost:5000` by default.
 
 ## Validation
+
+Run the frontend checks:
 
 ```bash
 cd client
 npm run lint
 npm run build
+```
 
-cd ../server
+Run the server type check:
+
+```bash
+cd server
 npm run build
 ```
 
 ## Deployment
 
-Deploy the frontend and backend as separate services. Configure the frontend's `VITE_API_URL` with the public API base URL, and configure the backend's `CLIENT_URL` with the public frontend URL. Add all other backend variables through the deployment provider's secret/environment-variable settings.
+### Frontend
 
-Never commit `.env` files or real API keys. Only `.env.example` files belong in Git.
+The client is deployed on Vercel. Configure the project root as `client` and set:
+
+```env
+VITE_API_URL=https://edureach-platform-pktf.onrender.com/api
+```
+
+### Backend
+
+The server is deployed on Render. Configure the project root as `server`, use the Node.js start command, and add all server environment variables through Render's secret settings.
+
+Set the production CORS origin to:
+
+```env
+CLIENT_URL=https://edureach-platform-mauve.vercel.app
+```
+
+## Project Goal
+
+EduReach is designed to make college exploration more personal and practical. Instead of forcing students to search across disconnected pages, it combines structured college information with AI-powered guidance and an optional counselor call experience.
+
+## Future Improvements
+
+- Add automated API and component tests
+- Add request validation and rate limiting for AI endpoints
+- Improve session expiry and refresh-token handling
+- Add a public health check and deployment readiness endpoint
+- Expand the knowledge base and administration workflow
+- Add more colleges and configurable institution profiles
+- Add richer analytics for student questions and guidance topics
 
 ## Documentation
 
 - [Client application guide](client/README.md)
 - [Server API guide](server/README.md)
+
+## Author
+
+Manikanta
+
+- GitHub: [manikanta-2310](https://github.com/manikanta-2310)
+
+## License
+
+This project is developed for educational and portfolio purposes.
