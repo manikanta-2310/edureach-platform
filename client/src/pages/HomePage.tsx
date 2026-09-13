@@ -13,6 +13,7 @@ import EventsGallery from "../components/EventsGallery";
 import CounselorCTA from "../components/CounselorCTA";
 import HiringStatsSection from "../components/HiringStatsSection";
 import Footer from "../components/Footer";
+import "../components/SiteStyles.css";
 
 export default function HomePage() {
   const { user } = useAuth();
@@ -47,14 +48,14 @@ export default function HomePage() {
           <Footer />
         </>
       ) : (
-        <section className="py-0 bg-cream text-center">
-          <h2 className="text-3xl font-bold mb-4">Want to See More?</h2>
-          <p className="text-gray-500 mb-8">
+        <section className="unlock-section">
+          <h2 className="unlock-title">Want to See More?</h2>
+          <p className="unlock-description">
             Sign up to explore campus life, events, placement statistics,
             and talk to our AI counselor.
           </p>
           <button onClick={() => setShowSignupPopup(true)}
-            className="bg-maroon text-white px-8 py-3 rounded-lg font-semibold">
+            className="unlock-button">
             Sign Up to Unlock
           </button>
           <Footer />

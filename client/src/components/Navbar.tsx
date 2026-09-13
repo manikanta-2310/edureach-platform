@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, GraduationCap, LogOut } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { navLinks } from "../data/content";
+import "./SiteStyles.css";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,64 +17,64 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+    <nav className="navbar">
+      <div className="site-container navbar-inner">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <GraduationCap className="w-8 h-8 text-maroon" />
-          <span className="font-heading text-xl font-bold text-maroon">EduReach</span>
+        <Link to="/" className="navbar-logo">
+          <GraduationCap className="navbar-logo-icon" />
+          <span className="navbar-logo-text">EduReach</span>
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="navbar-links">
           {navLinks.map((link) => (
             <a key={link.label} href={link.href}
-              className="text-gray-700 hover:text-maroon transition-colors duration-200 text-sm font-medium">
+              className="navbar-link">
               {link.label}
             </a>
           ))}
         </div>
 
         {/* Desktop auth */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="navbar-auth">
           {user ? (
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-600">Hi, {user.name.split(" ")[0]}</span>
+            <div className="navbar-user">
+              <span className="navbar-greeting">Hi, {user.name.split(" ")[0]}</span>
               <button onClick={handleLogout}
-                className="flex items-center gap-1 text-sm bg-maroon/10 text-maroon px-3 py-1.5 rounded-lg hover:bg-maroon hover:text-white transition-colors duration-200">
-                <LogOut className="w-4 h-4" /> Logout
+                className="navbar-logout">
+                <LogOut size={16} /> Logout
               </button>
             </div>
           ) : (
             <>
-              <Link to="/login" className="text-sm text-maroon font-medium hover:text-maroon-dark transition-colors duration-200">Login</Link>
-              <Link to="/signup" className="text-sm bg-maroon text-white px-4 py-2 rounded-lg hover:bg-maroon-dark transition-colors duration-200">Sign Up</Link>
+              <Link to="/login" className="navbar-login">Login</Link>
+              <Link to="/signup" className="navbar-signup">Sign Up</Link>
             </>
           )}
         </div>
 
         {/* Mobile hamburger */}
-        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-gray-700">
-          {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        <button onClick={() => setMenuOpen(!menuOpen)} className="navbar-toggle">
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-3">
+        <div className="navbar-mobile">
           {navLinks.map((link) => (
             <a key={link.label} href={link.href} onClick={() => setMenuOpen(false)}
-              className="block text-gray-700 hover:text-maroon transition-colors duration-200">{link.label}</a>
+              className="navbar-mobile-link">{link.label}</a>
           ))}
-          <div className="pt-3 border-t border-gray-100">
+          <div className="navbar-mobile-actions">
             {user ? (
-              <button onClick={handleLogout} className="flex items-center gap-2 text-maroon font-medium">
-                <LogOut className="w-4 h-4" /> Logout
+              <button onClick={handleLogout} className="navbar-mobile-link">
+                <LogOut size={16} /> Logout
               </button>
             ) : (
-              <div className="flex gap-3">
-                <Link to="/login" onClick={() => setMenuOpen(false)} className="text-maroon font-medium">Login</Link>
-                <Link to="/signup" onClick={() => setMenuOpen(false)} className="bg-maroon text-white px-4 py-2 rounded-lg text-sm">Sign Up</Link>
+              <div className="navbar-mobile-actions">
+                <Link to="/login" onClick={() => setMenuOpen(false)} className="navbar-login">Login</Link>
+                <Link to="/signup" onClick={() => setMenuOpen(false)} className="navbar-signup">Sign Up</Link>
               </div>
             )}
           </div>

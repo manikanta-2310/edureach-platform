@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { quotesContent } from "../data/content";
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import "./SiteStyles.css";
 
 export default function QuotesSection() {
   const [current, setCurrent] = useState(0);
@@ -30,42 +31,40 @@ export default function QuotesSection() {
   const next = () => goTo((current + 1) % quotesContent.length);
 
   return (
-    <section className="py-16 bg-cream">
-      <div className="max-w-3xl mx-auto px-4 text-center">
-        <Quote className="w-10 h-10 text-maroon/30 mx-auto mb-6" />
+    <section className="quotes-section">
+      <div className="site-container">
+        <Quote className="quote-mark" />
 
-        <div className="relative min-h-[120px] flex items-center justify-center">
+        <div className="quote-wrap">
           {/* Prev arrow */}
-          <button onClick={prev} className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-maroon transition-colors duration-200">
-            <ChevronLeft className="w-6 h-6" />
+          <button onClick={prev} className="quote-control quote-control--prev">
+            <ChevronLeft size={24} />
           </button>
 
           {/* Quote - fades in/out */}
           <div
-            className="px-10 transition-opacity duration-300"
+            className="quote-content"
             style={{ opacity: fade ? 1 : 0 }}
           >
-            <p className="font-heading text-2xl md:text-3xl text-gray-800 italic leading-relaxed mb-4">
+            <p className="quote-text">
               &ldquo;{quotesContent[current].text}&rdquo;
             </p>
-            <p className="text-maroon font-semibold">&mdash; {quotesContent[current].author}</p>
+            <p className="quote-author">&mdash; {quotesContent[current].author}</p>
           </div>
 
           {/* Next arrow */}
-          <button onClick={next} className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-maroon transition-colors duration-200">
-            <ChevronRight className="w-6 h-6" />
+          <button onClick={next} className="quote-control quote-control--next">
+            <ChevronRight size={24} />
           </button>
         </div>
 
         {/* Dots */}
-        <div className="flex justify-center gap-2 mt-6">
+        <div className="quote-dots">
           {quotesContent.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                i === current ? "bg-maroon w-6" : "bg-gray-300"
-              }`}
+              className={`quote-dot ${i === current ? "quote-dot--active" : ""}`}
             />
           ))}
         </div>

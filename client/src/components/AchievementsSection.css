@@ -1,0 +1,41 @@
+.achievements-section {
+  padding: 64px 0;
+  background: var(--color-maroon);
+}
+
+.achievements-container {
+  width: min(100% - 32px, 1152px);
+  margin: 0 auto;
+}
+
+.achievements-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.achievement {
+  flex: 1 1 calc(25% - 24px);
+  min-width: 120px;
+  text-align: center;
+}
+
+.achievement-value {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.achievement-label {
+  margin: 8px 0 0;
+  color: rgb(255 255 255 / 80%);
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .achievement {
+    flex-basis: calc(50% - 16px);
+  }
+}

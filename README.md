@@ -28,6 +28,7 @@ EduReach is an AI-powered college intelligence platform that helps students make
 - TypeScript
 - Vite
 - React Router
+- Plain CSS with Flexbox for responsive layouts
 - Axios
 - Lucide React
 - React Hot Toast
@@ -63,6 +64,7 @@ edureach-platform/
 |-- client/
 |   |-- src/
 |   |   |-- components/     Homepage sections and interactive UI
+|   |   |                   Component CSS and shared site styles
 |   |   |-- context/        Authentication state
 |   |   |-- data/           College and site content
 |   |   |-- pages/          Home, login, and signup screens
@@ -278,6 +280,8 @@ npm run dev
 
 The local application runs at `http://localhost:5173` and the API runs at `http://localhost:5000` by default.
 
+The client uses regular CSS and Flexbox for layout and responsive styling. Tailwind CSS is not required.
+
 ## Validation
 
 Run the frontend checks:
@@ -287,6 +291,8 @@ cd client
 npm run lint
 npm run build
 ```
+
+The production build compiles the TypeScript client and bundles the Vite application.
 
 Run the server type check:
 

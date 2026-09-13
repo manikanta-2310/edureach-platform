@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { X, GraduationCap } from "lucide-react";
+import "./SiteStyles.css";
 
 interface SignupPopupProps {
   show: boolean;
@@ -10,26 +11,26 @@ export default function SignupPopup({ show, onClose }: SignupPopupProps) {
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 px-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-200">
-          <X className="w-5 h-5" />
+    <div className="modal-backdrop">
+      <div className="modal-card signup-card">
+        <button onClick={onClose} className="modal-close">
+          <X size={20} />
         </button>
-        <div className="text-center">
-          <div className="w-14 h-14 bg-maroon/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <GraduationCap className="w-7 h-7 text-maroon" />
+        <div className="signup-content">
+          <div className="signup-icon">
+            <GraduationCap size={28} />
           </div>
-          <h3 className="font-heading text-2xl font-bold text-gray-900 mb-2">Unlock Full Access</h3>
-          <p className="text-gray-500 text-sm mb-6">
+          <h3 className="signup-title">Unlock Full Access</h3>
+          <p className="signup-description">
             Sign up to explore our mentors, campus life, placements, and get AI-powered counseling.
           </p>
           <Link to="/signup" onClick={onClose}
-            className="block w-full bg-maroon text-white py-3 rounded-lg font-semibold hover:bg-maroon-dark transition-colors duration-200 mb-3">
+            className="signup-unlock-button">
             Create Free Account
           </Link>
-          <p className="text-sm text-gray-500">
+          <p className="signup-link-copy">
             Already have an account?{" "}
-            <Link to="/login" onClick={onClose} className="text-maroon font-medium hover:underline">Sign In</Link>
+            <Link to="/login" onClick={onClose}>Sign In</Link>
           </p>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { X, Send, Bot, User, Minus } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { sendMessage } from "../services/chat.service";
+import "./SiteStyles.css";
 
 interface Message {
   id: number;
@@ -70,63 +71,57 @@ export default function ChatDrawer({ open, onClose }: ChatDrawerProps) {
   if (!open) return null;
 
   return (
-    <div className="fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[520px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200">
+    <div className="chat-drawer">
       {/* Header */}
-      <div className="bg-maroon px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-            <Bot className="w-4 h-4 text-white" />
+      <div className="chat-header">
+        <div className="chat-brand">
+          <div className="chat-brand-icon">
+            <Bot size={16} />
           </div>
           <div>
-            <h3 className="text-white font-semibold text-sm">EduReach Bot</h3>
-            <p className="text-white/70 text-xs">Ask me anything</p>
+            <h3>EduReach Bot</h3>
+            <p>Ask me anything</p>
           </div>
         </div>
-        <div className="flex items-center gap-1">
-          <button onClick={onClose} className="text-white/70 hover:text-white p-1 transition-colors duration-200">
-            <Minus className="w-4 h-4" />
+        <div className="chat-actions">
+          <button onClick={onClose} className="chat-action">
+            <Minus size={16} />
           </button>
-          <button onClick={onClose} className="text-white/70 hover:text-white p-1 transition-colors duration-200">
-            <X className="w-4 h-4" />
+          <button onClick={onClose} className="chat-action">
+            <X size={16} />
           </button>
         </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
+      <div className="chat-messages">
         {messages.map((msg) => (
-          <div key={msg.id} className={`flex items-end gap-2 ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
+          <div key={msg.id} className={`chat-message-row ${msg.sender === "user" ? "chat-message-row--user" : ""}`}>
             {msg.sender === "bot" && (
-              <div className="w-6 h-6 bg-maroon rounded-full flex items-center justify-center flex-shrink-0">
-                <Bot className="w-3 h-3 text-white" />
+              <div className="chat-avatar chat-avatar--bot">
+                <Bot size={12} />
               </div>
             )}
-            <div className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
-              msg.sender === "user"
-                ? "bg-maroon text-white rounded-br-sm"
-                : "bg-white text-gray-800 border border-gray-200 rounded-bl-sm shadow-sm"
-            }`}>
+            <div className={`chat-bubble ${msg.sender === "user" ? "chat-bubble--user" : "chat-bubble--bot"}`}>
               {msg.text}
             </div>
             {msg.sender === "user" && (
-              <div className="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                <User className="w-3 h-3 text-gray-600" />
+              <div className="chat-avatar chat-avatar--user">
+                <User size={12} />
               </div>
             )}
           </div>
         ))}
 
         {sending && (
-          <div className="flex items-end gap-2">
-            <div className="w-6 h-6 bg-maroon rounded-full flex items-center justify-center">
-              <Bot className="w-3 h-3 text-white" />
+          <div className="chat-message-row">
+            <div className="chat-avatar chat-avatar--bot">
+              <Bot size={12} />
             </div>
-            <div className="bg-white border border-gray-200 px-3 py-2 rounded-2xl rounded-bl-sm shadow-sm">
-              <div className="flex gap-1">
-                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" />
-                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]" />
-                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]" />
-              </div>
+            <div className="chat-typing">
+                <span />
+                <span />
+                <span />
             </div>
           </div>
         )}
@@ -135,12 +130,12 @@ export default function ChatDrawer({ open, onClose }: ChatDrawerProps) {
 
       {/* Quick questions */}
       {messages.length === 1 && (
-        <div className="px-3 py-2 bg-gray-50 border-t border-gray-100">
-          <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
-          <div className="flex flex-wrap gap-1.5">
+        <div className="chat-quick">
+          <p className="chat-quick-label">Quick questions:</p>
+          <div className="chat-quick-list">
             {quickQuestions.map((q) => (
               <button key={q} onClick={() => handleSend(q)}
-                className="text-xs px-2.5 py-1 bg-white border border-maroon/20 text-maroon rounded-full hover:bg-maroon hover:text-white transition-colors duration-200">
+                className="chat-quick-button">
                 {q}
               </button>
             ))}
@@ -149,14 +144,14 @@ export default function ChatDrawer({ open, onClose }: ChatDrawerProps) {
       )}
 
       {/* Input */}
-      <div className="bg-white border-t border-gray-200 p-3">
-        <div className="flex items-center gap-2">
+      <div className="chat-composer">
+        <div className="chat-composer-inner">
           <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown}
             placeholder="Ask a question..." disabled={sending}
-            className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-maroon text-sm disabled:opacity-50 transition-colors duration-200" />
+            className="chat-input" />
           <button onClick={() => handleSend()} disabled={!input.trim() || sending}
-            className="w-9 h-9 bg-maroon text-white rounded-lg flex items-center justify-center hover:bg-maroon-dark disabled:opacity-50 transition-colors duration-200">
-            <Send className="w-4 h-4" />
+            className="chat-send">
+            <Send size={16} />
           </button>
         </div>
       </div>

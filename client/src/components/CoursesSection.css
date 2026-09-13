@@ -1,0 +1,198 @@
+.courses-section {
+  padding: 80px 0;
+  background: var(--color-cream);
+}
+
+.courses-container {
+  width: min(100% - 32px, 1152px);
+  margin: 0 auto;
+}
+
+.courses-heading {
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.courses-eyebrow {
+  margin: 0 0 8px;
+  color: var(--color-maroon);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.courses-title,
+.advanced-course-title,
+.course-group-title {
+  font-family: var(--font-heading);
+}
+
+.courses-title {
+  margin: 0;
+  color: #111827;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.course-group-title {
+  margin: 0 0 16px;
+  color: #1f2937;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.btech-list,
+.advanced-courses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.btech-list {
+  margin-bottom: 40px;
+}
+
+.btech-card {
+  flex: 1 1 calc(33.333% - 11px);
+  min-width: 240px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 8px;
+  transition: border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.btech-card:hover {
+  border-color: var(--color-maroon);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+}
+
+.course-card-content,
+.course-seats,
+.advanced-course-heading,
+.mba-meta {
+  display: flex;
+  align-items: center;
+}
+
+.course-card-content {
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.course-icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  color: var(--color-maroon);
+}
+
+.course-name,
+.advanced-course-title,
+.mba-name {
+  margin: 0;
+  color: #111827;
+}
+
+.course-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.course-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.course-seats {
+  gap: 4px;
+}
+
+.seats-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.course-average {
+  color: var(--color-maroon);
+  font-weight: 500;
+}
+
+.advanced-course-card {
+  flex: 1 1 calc(50% - 8px);
+  min-width: 280px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 12px;
+}
+
+.advanced-course-heading {
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.advanced-course-image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.advanced-course-title {
+  color: #1f2937;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.mtech-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f9fafb;
+  font-size: 14px;
+}
+
+.mtech-name,
+.mba-name {
+  color: #374151;
+}
+
+.mtech-seats,
+.mba-seats,
+.mba-description {
+  color: #6b7280;
+}
+
+.mba-meta {
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.mba-description {
+  margin: 8px 0 0;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .btech-card,
+  .advanced-course-card {
+    flex-basis: calc(50% - 8px);
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .btech-card,
+  .advanced-course-card {
+    flex-basis: 100%;
+  }
+}

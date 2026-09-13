@@ -1,16 +1,17 @@
 import { achievementsContent } from "../data/content";
+import "./AchievementsSection.css";
 
 export default function AchievementsSection() {
   return (
-    <section className="bg-maroon py-16">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <section className="achievements-section">
+      <div className="achievements-container">
+        <div className="achievements-list">
           {achievementsContent.stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-white font-heading">
+            <div key={stat.label} className="achievement">
+              <p className="achievement-value">
                 {stat.value}
               </p>
-              <p className="text-white/80 mt-2 text-sm">{stat.label}</p>
+              <p className="achievement-label">{stat.label}</p>
             </div>
           ))}
         </div>
